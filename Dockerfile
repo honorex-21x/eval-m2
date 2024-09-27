@@ -1,21 +1,19 @@
-# Utiliser l'image Python 3.9-slim
+# Utiliser une image Python légère
 FROM python:3.9-slim
 
-# Définir le répertoire de travail dans le conteneur
+# Définir le répertoire de travail
 WORKDIR /app
 
-# Copier le fichier requirements.txt dans le conteneur
+# Copier les dépendances et les installer
 COPY requirements.txt .
-
-# Installer les dépendances Python
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copier tous les fichiers dans le conteneur
+# Copier tout le code de l'application
 COPY . .
 
 # Exposer le port 8000
 EXPOSE 8000
 
-# Lancer l'application FastAPI avec Uvicorn
+# Démarrer l'application avec Uvicorn
 CMD ["uvicorn", "mini-groq:app", "--host", "0.0.0.0", "--port", "8000"]
 
